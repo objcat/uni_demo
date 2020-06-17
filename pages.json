@@ -1,4 +1,8 @@
 {
+	"easycom": {
+		"^uni-(.*)": "@/components/uni/uni-$1/uni-$1.vue",
+		"^u-(.*)": "@/components/uview-ui/components/u-$1/u-$1.vue"
+	},
 	// 配置路由
 	"pages": [{
 			"path": "pages/index/index",
@@ -42,6 +46,13 @@
 			"path": "pages/mine/mine",
 			"style": {
 				"navigationBarTitleText": "我的"
+			}
+		},
+		{
+			"path": "pages/main/custom-navi/custom-navi",
+			"style": {
+				"navigationBarTitleText": "自定义导航栏",
+				"navigationStyle":"custom"
 			}
 		}
 	],
