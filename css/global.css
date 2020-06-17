@@ -1,0 +1,112 @@
+/* #ifndef APP-NVUE */
+
+page {
+	min-height: 100%;
+	background-color: #FFFFFF;
+	font-size: 16px;
+}
+
+/* #endif */
+
+/* #ifndef APP-NVUE */
+
+/* 设置web端背景颜色 */
+uni-page-body {
+	background-color: #FFFFFF;
+}
+
+/* 设置手机端背景颜色 */
+body {
+	background-color: #FFFFFF;
+}
+
+/* #endif */
+
+.zy-content {
+	/* #ifndef APP-NVUE */
+	display: flex;
+	/* #endif */
+	flex-direction: column;
+	font-size: 16px;
+}
+
+.content {
+	/* #ifndef APP-NVUE */
+	display: flex;
+	/* #endif */
+	flex-direction: column;
+}
+
+.font-style-time {
+	font-size: 13px;
+	color: #929395;
+}
+
+.flex_center {
+	justify-content: center;
+	align-items: center;
+}
+
+.zy-line-one {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	/* #ifndef APP-NVUE */
+	display: -webkit-box;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
+	/* #endif */
+	/* #ifdef APP-NVUE */
+	lines: 1;
+	/* #endif */
+}
+
+.zy-line-two {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	/* #ifndef APP-NVUE */
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	/* #endif */
+	/* #ifdef APP-NVUE */
+	lines: 2;
+	/* #endif */
+}
+
+.zy-line-three {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	/* #ifndef APP-NVUE */
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	/* #endif */
+	/* #ifdef APP-NVUE */
+	lines: 2;
+	/* #endif */
+}
+
+.zy-flex-row {
+	/* #ifndef APP-NVUE */
+	display: flex;
+	/* #endif */
+	flex-direction: row;
+	overflow: hidden;
+}
+
+.zy-flex-column {
+	/* #ifndef APP-NVUE */
+	display: flex;
+	/* #endif */
+	flex-direction: column;
+	overflow: hidden;
+}
+
+.zy-font-size-16 {
+	font-size: 16px;
+}
+
+
+
+
+

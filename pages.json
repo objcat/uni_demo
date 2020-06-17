@@ -1,0 +1,79 @@
+{
+	// 配置路由
+	"pages": [{
+			"path": "pages/index/index",
+			"style": {}
+		},
+		{
+			"path": "pages/login/login",
+			"style": {
+				"navigationBarTitleText": "登陆"
+			}
+		},
+		{
+			"path": "pages/guide/guide",
+			"style": {
+				"navigationBarTitleText": "引导页",
+				"navigationStyle":"custom"
+			}
+		},
+		{
+			"path": "pages/main/main",
+			"style": {
+				"navigationBarTitleText": "主页"
+			}
+		},
+		{
+			"path": "pages/apps/apps",
+			"style": {
+				"navigationBarTitleText": "应用"
+			}
+		},
+		{
+			"path": "pages/news/news",
+			"style": {
+				"navigationBarTitleText": "新闻"
+			}
+		},
+		{
+			"path": "pages/mine/mine",
+			"style": {
+				"navigationBarTitleText": "我的"
+			}
+		}
+	],
+	// 配置全局样式
+	"globalStyle": {
+		"navigationBarTextStyle": "white",
+		"navigationBarTitleText": "",
+		"navigationBarBackgroundColor": "#007AFF",
+		"backgroundColor": "#FFFFFF"
+	},
+	//配置tabbar
+	"tabBar": {
+		"color": "#7a7e83",
+		"selectedColor": "#1DB68F",
+		"backgroundColor": "#ffffff",
+		"list": [{
+			"pagePath": "pages/main/main",
+			"text": "首页",
+			"iconPath": "static/img/tabbar/tabbar1_2.0@3x.png",
+			"selectedIconPath": "static/img/tabbar/tabbar1_selected_2.0@3x.png"
+		}, {
+			"pagePath": "pages/apps/apps",
+			"text": "应用",
+			"iconPath": "static/img/tabbar/tabbar2_2.0@3x.png",
+			"selectedIconPath": "static/img/tabbar/tabbar2_selected_2.0@3x.png"
+		}, {
+			"pagePath": "pages/news/news",
+			"text": "新闻",
+			"iconPath": "static/img/tabbar/tabbar3_2.0@3x.png",
+			"selectedIconPath": "static/img/tabbar/tabbar3_selected_2.0@3x.png"
+		}, {
+			"pagePath": "pages/mine/mine",
+			"text": "我的",
+			"iconPath": "static/img/tabbar/tabbar4_2.0@3x.png",
+			"selectedIconPath": "static/img/tabbar/tabbar4_selected_2.0@3x.png"
+		}]
+	}
+}
