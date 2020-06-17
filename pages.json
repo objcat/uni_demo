@@ -14,7 +14,10 @@
 			"path": "pages/guide/guide",
 			"style": {
 				"navigationBarTitleText": "引导页",
-				"navigationStyle":"custom"
+				"navigationStyle":"custom",
+				"app-plus": {
+					"bounce":"none"
+				}
 			}
 		},
 		{

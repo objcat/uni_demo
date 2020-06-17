@@ -1,6 +1,6 @@
 <template>
 	<view class="zy-content">
-		<swiper style="background-color: #0066CC;" :style="{height: swiper_height}">
+		<swiper style="background-color: #FFFFFF;" :style="{height: swiper_height}" duration="400" >
 			<swiper-item v-for="item in list" style="background-color: yellow;">
 				<view class="swiper-item zy-flex-column" style="align-items: center; justify-content: center; background-color: white; height: 100%;">
 					<image :src="item.img" mode="widthFix" style="width: 100%; -webkit-user-drag: none;" ondragstart="return false">
@@ -33,7 +33,7 @@
 					},
 					{
 						"id": 2,
-						"img": ""
+						"img": img.launch_img_1
 					}
 				],
 				swiper_height: 0,
