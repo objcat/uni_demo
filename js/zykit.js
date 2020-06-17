@@ -175,7 +175,7 @@ const api = {
 
 const img = {
 	icon_wangye: "/static/img/user/wangye.png",
-	launch_img_1: "/static/img/guide/易予壳子@2x.png"
+	launch_img_1: "/static/img/guide/guide.png"
 }
 
 export {
