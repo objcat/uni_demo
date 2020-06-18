@@ -54,6 +54,19 @@
 				"navigationBarTitleText": "自定义导航栏",
 				"navigationStyle":"custom"
 			}
+		},
+		{
+			"path": "pages/main/custom-navi/navi",
+			"style": {
+				"navigationBarTitleText": "原生导航栏"
+			}
+		},
+		{
+			"path": "pages/main/custom-navi/z-navi",
+			"style": {
+				"navigationBarTitleText": "自定义导航栏2",
+				"navigationStyle":"custom"
+			}
 		}
 	],
 	// 配置全局样式

@@ -1,7 +1,7 @@
 <template>
 	<view class="zy-content">
 		<uni-list>
-			<uni-list-item title="自定义导航栏" @click="listClick"></uni-list-item>
+			<uni-list-item v-for="item in list" :title="item.title" @click="listClick(item)" :key="item.id"></uni-list-item>
 		</uni-list>
 	</view>
 </template>
@@ -15,10 +15,43 @@
 		ui
 	} from '@/js/zykit.js'
 	export default {
+		data() {
+			return {
+				list: [{
+						"id": 1,
+						"title": "自定义导航栏"
+					},
+					{
+						"id": 2,
+						"title": "原生导航栏"
+					},
+					{
+						"id": 3,
+						"title": "原生导航栏2"
+					}
+				]
+			}
+		},
 		methods: {
-			listClick() {
-				console.log("点击");
-				navi.navigateTo("/pages/main/custom-navi/custom-navi");
+			listClick(item) {
+
+				switch (item.id) {
+					case 1:
+						{
+							navi.navigateTo("/pages/main/custom-navi/custom-navi");
+							break;
+						}
+					case 2:
+						{
+							navi.navigateTo("/pages/main/custom-navi/navi");
+							break;
+						}
+					case 3:
+						{
+							navi.navigateTo("/pages/main/custom-navi/z-navi");
+							break;
+						}
+				}
 			}
 		}
 	}

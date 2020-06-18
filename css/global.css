@@ -51,9 +51,7 @@ body {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	/* #ifndef APP-NVUE */
-	display: -webkit-box;
-	-webkit-line-clamp: 1;
-	-webkit-box-orient: vertical;
+	white-space: nowrap;
 	/* #endif */
 	/* #ifdef APP-NVUE */
 	lines: 1;
@@ -78,7 +76,7 @@ body {
 	text-overflow: ellipsis;
 	/* #ifndef APP-NVUE */
 	display: -webkit-box;
-	-webkit-line-clamp: 2;
+	-webkit-line-clamp: 3;
 	-webkit-box-orient: vertical;
 	/* #endif */
 	/* #ifdef APP-NVUE */
