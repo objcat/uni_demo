@@ -1,12 +1,15 @@
 <template>
 	<view class="zy-content">
-		<swiper style="background-color: #FFFFFF;" :style="{height: swiper_height}" duration="400" >
-			<swiper-item v-for="item in list" style="background-color: yellow;">
-				<view class="swiper-item zy-flex-column" style="align-items: center; justify-content: center; background-color: white; height: 100%;">
-					<image :src="item.img" mode="widthFix" style="width: 100%; -webkit-user-drag: none;" ondragstart="return false">
-
-					</image>
-					<button v-if="item.id == 2" @click="start" type="default" style="position: absolute; width: 100px;" :style="{top: safeArea.height - 100 + 'px', left: (safeArea.width - 100) / 2 + 'px'}">点击体验</button>
+		<swiper style="background-color: #FFFFFF;" :style="{height: swiper_height}" duration="400">
+			<swiper-item style="background-color: yellow;">
+				<view class="zy-flex-column swipper_item" style="align-items: center; justify-content: center; background-color: white; height: 100%;">
+				</view>
+			</swiper-item>
+			
+			<swiper-item style="background-color: yellow;">
+				<view class="zy-flex-column swipper_item" style="align-items: center; justify-content: center; background-color: white; height: 100%;">
+					<button  @click="start" type="default" style="position: absolute; width: 100px; background-color: red; z-index: 1000;"
+					 :style="{top: safeArea.height - 100 + 'px', left: (safeArea.width - 100) / 2 + 'px'}">点击体验</button>
 				</view>
 			</swiper-item>
 		</swiper>
@@ -37,7 +40,8 @@
 					}
 				],
 				swiper_height: 0,
-				safeArea: null
+				safeArea: null,
+				img: img.launch_img_1
 			}
 		},
 		computed: {
@@ -73,4 +77,8 @@
 
 <style>
 	@import url("@/css/global.css");
+	.swipper_item {
+		background-image: url(/static/img/guide/guide.png);
+		background-size:100% 100%;
+	}
 </style>
