@@ -7,6 +7,9 @@
 </template>
 
 <script>
+	import uniList from '@/components/uni/uni-list/uni-list.vue'
+	import uniListItem from '@/components/uni/uni-list-item/uni-list-item.vue'
+
 	import {
 		req,
 		api,
@@ -15,19 +18,19 @@
 		ui
 	} from '@/js/zykit.js'
 	export default {
+		components: {
+			uniList,
+			uniListItem
+		},
 		data() {
 			return {
 				list: [{
-						"id": 1,
-						"title": "自定义导航栏"
-					},
-					{
 						"id": 2,
 						"title": "原生导航栏"
 					},
 					{
-						"id": 3,
-						"title": "原生导航栏2"
+						"id": 1,
+						"title": "自定义导航栏(在微信小程序中会闪烁,不推荐使用)"
 					}
 				]
 			}
@@ -44,11 +47,6 @@
 					case 2:
 						{
 							navi.navigateTo("/pages/main/custom-navi/navi");
-							break;
-						}
-					case 3:
-						{
-							navi.navigateTo("/pages/main/custom-navi/z-navi");
 							break;
 						}
 				}

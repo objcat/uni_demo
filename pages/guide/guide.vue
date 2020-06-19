@@ -2,10 +2,8 @@
 	<view class="zy-content">
 		<swiper style="background-color: #FFFFFF;" :style="{height: swiper_height}" duration="400" >
 			<swiper-item v-for="item in list" style="background-color: yellow;">
-				<view class="swiper-item zy-flex-column" style="align-items: center; justify-content: center; background-color: white; height: 100%;">
-					<image :src="item.img" mode="widthFix" style="width: 100%; -webkit-user-drag: none;" ondragstart="return false">
-
-					</image>
+				<view class="swiper-item zy-flex-column" style="align-items: center; justify-content: center; background-color: yellow; height: 100%;">
+					<image :src="item.img" mode="widthFix" style="width: 100%;" ondragstart="return false"></image>
 					<button v-if="item.id == 2" @click="start" type="default" style="position: absolute; width: 100px;" :style="{top: safeArea.height - 100 + 'px', left: (safeArea.width - 100) / 2 + 'px'}">点击体验</button>
 				</view>
 			</swiper-item>
