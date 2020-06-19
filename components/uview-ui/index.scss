@@ -10,7 +10,8 @@ page {
 image {
 	display: inline-block;
 	// 解决图片加载时可能会瞬间变形的问题
-	will-change: transform;
+	// 解决swiper覆盖问题
+	// will-change: transform;
 }
 
 view,
