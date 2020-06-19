@@ -40,15 +40,12 @@
 
 				switch (item.id) {
 					case 1:
-						{
-							navi.navigateTo("/pages/main/custom-navi/custom-navi");
-							break;
-						}
+						navi.navigateTo("/pages/main/custom-navi/custom-navi");
+						break;
+
 					case 2:
-						{
-							navi.navigateTo("/pages/main/custom-navi/navi");
-							break;
-						}
+						navi.navigateTo("/pages/main/custom-navi/navi");
+						break;
 				}
 			}
 		}
