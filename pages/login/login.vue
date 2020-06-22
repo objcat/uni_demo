@@ -74,7 +74,7 @@
 					// 模拟登录
 					console.log("模拟登录成功!")
 					self.loading = false;
-					self.xact_login([true, self.username, self.password, {}]);
+					self.xact_login([true, self.username, self.password, "虚拟token123456", {"name": "root", "age": "666", "id": "1"}]);
 				}, 3000)
 
 			}

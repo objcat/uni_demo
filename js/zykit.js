@@ -121,11 +121,10 @@ const req = {
 	 */
 	post: function(url, data, callback, returnError = false) {
 
-		let userInfo = store.state.userInfo;
+		let token = store.state.token;
 
 		let header = {
-			"x-phone-userid": userInfo.sessionId,
-			"currentOrg": userInfo.defaultorgId
+			"token": token
 		}
 
 		uni.request({

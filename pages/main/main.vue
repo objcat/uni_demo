@@ -1,14 +1,30 @@
 <template>
 	<view class="zy-content">
+		
+		<view class="zy-flex-column" style="padding: 15px;">
+			<text v-if="isLogin">登陆成功</text>
+			<text v-if="!isLogin">未登录</text>
+			<text>用户名: {{ username }}</text>
+			<text>密码: {{ password }}</text>
+			<text>token: {{ token }}</text>
+			<text>用户信息: {{ userInfo }}</text>
+		</view>
+		
 		<uni-list>
 			<uni-list-item v-for="item in list" :title="item.title" @click="listClick(item)" :key="item.id"></uni-list-item>
 		</uni-list>
+		
 	</view>
 </template>
 
 <script>
-	import uniList from '@/components/uni/uni-list/uni-list.vue'
-	import uniListItem from '@/components/uni/uni-list-item/uni-list-item.vue'
+	
+	import {
+		mapState,
+		mapMutations,
+		mapGetters,
+		mapActions
+	} from 'vuex'
 
 	import {
 		req,
@@ -18,9 +34,8 @@
 		ui
 	} from '@/js/zykit.js'
 	export default {
-		components: {
-			uniList,
-			uniListItem
+		computed: {
+			...mapState(['isLogin','username', 'password', 'token', 'userInfo'])
 		},
 		data() {
 			return {

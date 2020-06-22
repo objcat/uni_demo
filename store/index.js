@@ -19,6 +19,8 @@ const store = new Vuex.Store({
 		username: "123",
 		// 密码
 		password: "",
+		// token
+		token: "",
 		// 用户信息
 		userInfo: {},
 	},
@@ -32,9 +34,14 @@ const store = new Vuex.Store({
 
 		// 保存用户名
 		xset_username(state, value) {
-			console.log("设置用户名");
 			state.username = value;
 			storage.set('username', value);
+		},
+		
+		// 保存token
+		xset_token(state, value) {
+			state.token = value;
+			storage.set('token', value);
 		},
 
 		// 保存密码
@@ -79,7 +86,8 @@ const store = new Vuex.Store({
 			context.commit('xset_isLogin', arr[0]);
 			context.commit('xset_username', arr[1]);
 			context.commit('xset_password', arr[2]);
-			context.commit('xset_userInfo', arr[3]);
+			context.commit('xset_token', arr[3]);
+			context.commit('xset_userInfo', arr[4]);
 			// 重定向到主页面
 			navi.reLaunch('/pages/main/main');
 		},
@@ -88,6 +96,7 @@ const store = new Vuex.Store({
 			context.commit('xset_isLogin', false);
 			context.commit('xset_username', '');
 			context.commit('xset_password', '');
+			context.commit('xset_token', '');
 			context.commit('xset_userInfo', {});
 			// 重定向到登陆页
 			navi.reLaunch("/pages/login/login");
