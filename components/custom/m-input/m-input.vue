@@ -16,7 +16,7 @@
 </template>
 
 <script>
-	import mIcon from '@/components/vender/m-input/m-icon.vue'
+	import mIcon from '@/components/custom/m-input/m-icon.vue'
 
 	export default {
 		components: {

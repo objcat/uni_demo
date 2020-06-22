@@ -36,7 +36,7 @@
 		mapActions
 	} from 'vuex'
 
-	import mInput from '@/components/vender/m-input/m-input.vue'
+	import mInput from '@/components/custom/m-input/m-input.vue'
 
 	export default {
 		components: {
