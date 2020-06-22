@@ -110,6 +110,40 @@ const media = {
 	}
 }
 
+
+const request = function(url, data, callback, returnError, method = 'POST') {
+	
+	let token = store.state.token;
+	
+	let header = {
+		"token": "12312321312"
+	}
+	
+	console.log(header);
+	
+	uni.request({
+		url: url,
+		method: method,
+		data: data,
+		header: header,
+		success(res) {
+			callback(res, null);
+		},
+		fail(error) {
+			if (returnError) {
+				callback(null, error);
+			} else {
+				let errMsg = error.errMsg;
+				if (errMsg.indexOf('timeout') != -1) {
+					ui.showToast("网络请求超时");
+				} else {
+					ui.showToast(error.errMsg);
+				}
+			}
+		}
+	})
+}
+
 const req = {
 	/**
 	 * 封装post请求
@@ -120,44 +154,10 @@ const req = {
 	 * @param returnError 如果设置true错误手动处理 默认是封装方法进行统一处理
 	 */
 	post: function(url, data, callback, returnError = false) {
-
-		let token = store.state.token;
-
-		let header = {
-			"token": token
-		}
-
-		uni.request({
-			url: url,
-			method: "POST",
-			data: data,
-			header: header,
-			success(res) {
-				ui.hideLoading()
-				if (res.data.status == 'failure') {
-					console.log("token失效, 退出到登陆界面");
-					// 登陆过期, 退出到登陆界面
-					console.log(store);
-					// 退出登陆
-					store.dispatch('xact_logout');
-					return;
-				}
-				callback(res, null);
-			},
-			fail(error) {
-				ui.hideLoading()
-				if (returnError) {
-					callback(null, error);
-				} else {
-					let errMsg = error.errMsg;
-					if (errMsg.indexOf('timeout') != -1) {
-						ui.showToast("网络请求超时");
-					} else {
-						ui.showToast(error.errMsg);
-					}
-				}
-			}
-		})
+		request(url, data, callback, returnError, 'POST');
+	},
+	get: function(url, data, callback, returnError = false) {
+		request(url, data, callback, returnError, 'GET');
 	}
 }
 

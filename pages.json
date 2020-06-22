@@ -63,7 +63,14 @@
 			"style": {
 				"navigationBarTitleText": "原生导航栏"
 			}
+		},
+		{
+			"path": "pages/main/request/request",
+			"style": {
+				"navigationBarTitleText": "网络请求"
+			}
 		}
+		
 	],
 	// 配置全局样式
 	"globalStyle": {
