@@ -22,5 +22,5 @@
 </script>
 
 <style>
-	@import url("@/css/global.css");
+	
 </style>
