@@ -1,9 +1,9 @@
 <template>
 	<view class="zy-content">
 		<swiper style="background-color: #FFFFFF;" :style="{height: swiper_height}" duration="400" >
-			<swiper-item v-for="item in list" style="background-color: yellow;">
+			<swiper-item v-for="item in list" style="background-color: #FFFFFF;">
 				<view class="swiper-item zy-flex-column" style="align-items: center; justify-content: center; background-color: yellow; height: 100%;">
-					<image :src="item.img" mode="widthFix" style="width: 100%;" ondragstart="return false"></image>
+					<image :src="item.img" mode="widthFix" style="width: 100%; will-change: auto;" ondragstart="return false"></image>
 					<button v-if="item.id == 2" @click="start" type="default" style="position: absolute; width: 100px;" :style="{top: safeArea.height - 100 + 'px', left: (safeArea.width - 100) / 2 + 'px'}">点击体验</button>
 				</view>
 			</swiper-item>
@@ -12,16 +12,19 @@
 </template>
 
 <script>
+	
 	import {
 		mapState,
 		mapMutations,
 		mapGetters,
 		mapActions
 	} from 'vuex'
+	
 	import {
 		img,
 		store
 	} from '@/js/zykit.js'
+	
 	export default {
 		data() {
 			return {
