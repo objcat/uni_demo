@@ -36,16 +36,6 @@
 				value: ""
 			}
 		},
-
-		onLoad: () => {
-
-			req.get("https://www.baidu.com", {
-				"name": "zhagnsan"
-			}, function(res) {
-				console.log(res);
-			})
-
-		},
 		methods: {
 			btnClick: function(index) {
 				let self = this;
@@ -53,33 +43,67 @@
 					case 0:
 						ui.showToast("开始进行get请求")
 						req.get("https://www.baidu.com", {}, function(res) {
-							
+
 							let result = "";
-							
+
 							result = result + "\n ********** header ********** \n \n";
-							
+
 							result = result + JSON.stringify(res.header);
-							
+
 							result = result + "\n \n ********** html ********** \n \n" + res.data;
-							
+
 							self.value = result;
-				
+
 						});
 						break;
 					case 1:
-						ui.showToast("开始进行get请求")
+						ui.showToast("开始进行post请求")
 						req.post("https://www.baidu.com", {}, function(res) {
-							
+
 							let result = "";
-							
+
 							result = result + "\n ********** header ********** \n \n";
-							
+
 							result = result + JSON.stringify(res.header);
-							
+
 							result = result + "\n \n ********** html ********** \n \n" + res.data;
-							
+
 							self.value = result;
-									
+
+						});
+						break;
+
+					case 2:
+						ui.showToast("开始进行put请求")
+						req.put("https://www.baidu.com", {}, function(res) {
+
+							let result = "";
+
+							result = result + "\n ********** header ********** \n \n";
+
+							result = result + JSON.stringify(res.header);
+
+							result = result + "\n \n ********** html ********** \n \n" + res.data;
+
+							self.value = result;
+
+						});
+						break;
+
+					case 3:
+						ui.showToast("开始进行delete请求")
+						req.delete("https://www.baidu.com", {}, function(res) {
+
+							let result = "";
+
+							result = result + "\n ********** header ********** \n \n";
+
+							result = result + JSON.stringify(res.header);
+
+							result = result + "\n \n ********** html ********** \n \n" + res.data;
+
+							self.value = result;
+
 						});
 						break;
 				}

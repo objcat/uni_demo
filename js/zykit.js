@@ -146,19 +146,26 @@ const request = function(url, data, callback, returnError, method = 'POST') {
 
 const req = {
 	/**
-	 * 封装post请求
+	 * 封装网络请求
 	 * 
 	 * @param url 请求地址
 	 * @param data 请求体
 	 * @param callback 请求回调
 	 * @param returnError 如果设置true错误手动处理 默认是封装方法进行统一处理
 	 */
+	get: function(url, data, callback, returnError = false) {
+		request(url, data, callback, returnError, 'GET');
+	},
 	post: function(url, data, callback, returnError = false) {
 		request(url, data, callback, returnError, 'POST');
 	},
-	get: function(url, data, callback, returnError = false) {
-		request(url, data, callback, returnError, 'GET');
+	put: function(url, data, callback, returnError = false) {
+		request(url, data, callback, returnError, 'PUT');
+	},
+	delete: function(url, data, callback, returnError = false) {
+		request(url, data, callback, returnError, 'DELETE');
 	}
+	
 }
 
 /**
