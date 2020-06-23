@@ -1,8 +1,9 @@
 <template>
 
-	<view class="zy-content">
-		<u-button v-for="(item, index) in list" type="primary" style="width: 100%;" class="button" @click="btnClick(index)">{{ item.title }}</u-button>
-		<text style="background-color: #DBF1E1; word-wrap: break-word; overflow: hidden;">{{ value }}</text>
+	<view class="zy-content" style="align-items: center;">
+		<view style="height: 2px; background-color: white;"></view>
+		<u-button v-for="(item, index) in list" :type="item.type" style="width: 90%;" class="button" @click="btnClick(index)">{{ item.title }}</u-button>
+		<text v-if="value" style="background-color: #DBF1E1; word-wrap: break-word; overflow: hidden; width: 90%; padding: 10px; margin-top: 10px;">{{ value }}</text>
 	</view>
 
 
@@ -21,16 +22,20 @@
 		data() {
 			return {
 				list: [{
-						"title": "get"
+						"title": "get",
+						"type": "success"
 					},
 					{
-						"title": "post"
+						"title": "post",
+						"type": "info"
 					},
 					{
-						"title": "put"
+						"title": "put",
+						"type": "warning"
 					},
 					{
-						"title": "delete"
+						"title": "delete",
+						"type": "error"
 					}
 				],
 				value: ""
@@ -46,7 +51,7 @@
 
 							let result = "";
 
-							result = result + "\n ********** header ********** \n \n";
+							result = result + "********** header ********** \n \n";
 
 							result = result + JSON.stringify(res.header);
 
@@ -62,7 +67,7 @@
 
 							let result = "";
 
-							result = result + "\n ********** header ********** \n \n";
+							result = result + "********** header ********** \n \n";
 
 							result = result + JSON.stringify(res.header);
 
@@ -79,7 +84,7 @@
 
 							let result = "";
 
-							result = result + "\n ********** header ********** \n \n";
+							result = result + "********** header ********** \n \n";
 
 							result = result + JSON.stringify(res.header);
 
@@ -96,7 +101,7 @@
 
 							let result = "";
 
-							result = result + "\n ********** header ********** \n \n";
+							result = result + "********** header ********** \n \n";
 
 							result = result + JSON.stringify(res.header);
 
