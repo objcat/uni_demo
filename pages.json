@@ -75,6 +75,12 @@
 			"style": {
 				"navigationBarTitleText": "展示登录信息"
 			}
+		},
+		{
+			"path": "pages/main/test-await/test-await",
+			"style": {
+				"navigationBarTitleText": "await"
+			}
 		}
 		
 	],

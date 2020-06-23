@@ -116,7 +116,8 @@ const request = function(url, data, callback, returnError, method = 'POST') {
 	let token = store.state.token;
 	
 	let header = {
-		"token": "12312321312"
+		// 这里进行token的封装
+		"token": "6666666"
 	}
 	
 	console.log(header);

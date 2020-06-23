@@ -37,7 +37,7 @@ const store = new Vuex.Store({
 			state.username = value;
 			storage.set('username', value);
 		},
-		
+
 		// 保存token
 		xset_token(state, value) {
 			state.token = value;
@@ -59,6 +59,15 @@ const store = new Vuex.Store({
 		xset_firstFlag(state, value) {
 			state.firstFlag = value;
 			storage.set('firstFlag', value);
+		},
+		
+		xset_await(state) {
+			console.log("xtest_await");
+			return new Promise(function(resolve, reject) {
+				setTimeout(function() {
+					resolve("result1");
+				}, 2000);
+			});
 		},
 
 		// 第一次进入加载所有数据
@@ -100,7 +109,16 @@ const store = new Vuex.Store({
 			context.commit('xset_userInfo', {});
 			// 重定向到登陆页
 			navi.reLaunch("/pages/login/login");
-		}
+		},
+		
+		xact_await(state) {
+			return new Promise(function(resolve, reject) {
+				setTimeout(function() {
+					resolve("result1");
+				}, 2000);
+			});
+		},
+		
 	}
 })
 

@@ -7,7 +7,6 @@
 </template>
 
 <script>
-	
 	import {
 		req,
 		api,
@@ -15,9 +14,9 @@
 		img,
 		ui
 	} from '@/js/zykit.js'
-	
+
 	export default {
-		
+
 		data() {
 			return {
 				list: [{
@@ -31,6 +30,10 @@
 					{
 						"id": 3,
 						"title": "网络请求"
+					},
+					{
+						"id": 4,
+						"title": "await"
 					}
 				]
 			}
@@ -47,6 +50,9 @@
 						break;
 					case 3:
 						navi.navigateTo("/pages/main/request/request");
+						break;
+					case 4:
+						navi.navigateTo("/pages/main/test-await/test-await");
 						break;
 				}
 			}
