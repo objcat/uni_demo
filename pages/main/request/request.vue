@@ -3,7 +3,7 @@
 	<view class="zy-content" style="align-items: center;">
 		<view style="height: 2px; background-color: white;"></view>
 		<u-button v-for="(item, index) in list" :type="item.type" style="width: 90%;" class="button" @click="btnClick(index)">{{ item.title }}</u-button>
-		<text v-if="value" style="background-color: #DBF1E1; word-wrap: break-word; overflow: hidden; width: 90%; padding: 10px; margin-top: 10px;">{{ value }}</text>
+		<text v-if="value" style="background-color: #DBF1E1; word-break:break-all; overflow: hidden; width: 90%; padding: 10px; margin-top: 10px;">{{ value }}</text>
 	</view>
 
 
@@ -50,12 +50,14 @@
 						req.get("https://www.baidu.com", {}, function(res) {
 
 							let result = "";
+							
+							result = result + "请求类型GET \n\n";
 
-							result = result + "********** header ********** \n \n";
+							result = result + "********** response header ********** \n\n";
 
 							result = result + JSON.stringify(res.header);
 
-							result = result + "\n \n ********** data ********** \n \n" + res.data;
+							result = result + "\n \n ********** data ********** \n\n" + res.data;
 
 							self.value = result;
 
@@ -66,12 +68,14 @@
 						req.post("https://www.baidu.com", {}, function(res) {
 
 							let result = "";
+							
+							result = result + "请求类型POST \n\n";
 
-							result = result + "********** header ********** \n \n";
+							result = result + "********** response header ********** \n\n";
 
 							result = result + JSON.stringify(res.header);
 
-							result = result + "\n \n ********** data ********** \n \n" + res.data;
+							result = result + "\n \n ********** data ********** \n\n" + res.data;
 
 							self.value = result;
 
@@ -81,14 +85,16 @@
 					case 2:
 						ui.showToast("开始进行put请求")
 						req.put("https://www.baidu.com", {}, function(res) {
-
+							
 							let result = "";
+							
+							result = result + "请求类型PUT \n\n";
 
-							result = result + "********** header ********** \n \n";
+							result = result + "********** response header ********** \n\n";
 
 							result = result + JSON.stringify(res.header);
 
-							result = result + "\n \n ********** data ********** \n \n" + res.data;
+							result = result + "\n \n ********** data ********** \n\n" + res.data;
 
 							self.value = result;
 
@@ -98,14 +104,16 @@
 					case 3:
 						ui.showToast("开始进行delete请求")
 						req.delete("https://www.baidu.com", {}, function(res) {
-
+							
 							let result = "";
+							
+							result = result + "请求类型DELETE \n\n";
 
-							result = result + "********** header ********** \n \n";
+							result = result + "********** response header ********** \n\n";
 
 							result = result + JSON.stringify(res.header);
 
-							result = result + "\n \n ********** data ********** \n \n" + res.data;
+							result = result + "\n \n ********** data ********** \n\n" + res.data;
 
 							self.value = result;
 

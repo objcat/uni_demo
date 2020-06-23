@@ -5,7 +5,7 @@
 		<text>用户名: {{ username }}</text>
 		<text>密码: {{ password }}</text>
 		<text>token: {{ token }}</text>
-		<text>用户信息: {{ str_userInfo }}</text>
+		<text style="word-break:break-all;">用户信息: {{ "\n" + str_userInfo }}</text>
 	</view>
 </template>
 

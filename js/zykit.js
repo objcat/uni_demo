@@ -120,6 +120,7 @@ const request = function(url, data, callback, returnError, method = 'POST') {
 		"token": "6666666"
 	}
 	
+	console.log("******** request header ********")
 	console.log(header);
 	
 	uni.request({
