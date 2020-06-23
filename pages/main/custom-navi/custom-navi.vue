@@ -12,6 +12,10 @@
 		
 		<u-button @click="go" type="success" style="width: 100%;">呼出原生导航栏</u-button>
 		
+		<text style="margin-top: 5px;">自定义导航栏的第二个毛病就是当输入框在下面的时候导航栏会被顶飞, 请点击下方蓝色区域查看此毛病</text>
+		
+		<u-input type="text" placeholder="123" style="margin-top: 100px; background-color: cyan;"></u-input>
+		
 	</view>
 </template>
 
