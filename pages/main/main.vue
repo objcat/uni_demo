@@ -42,13 +42,16 @@
 					{
 						"id": 6,
 						"title": "箭头函数测试"
+					},
+					{
+						"id": 7,
+						"title": "阻止点击事件冒泡"
 					}
 				]
 			}
 		},
 		methods: {
 			listClick(item) {
-
 				switch (item.id) {
 					case 1:
 						navi.navigateTo("/pages/main/show-info/show-info");
@@ -66,7 +69,10 @@
 						navi.navigateTo("/pages/main/test-searchbar/test-searchbar");
 						break;
 					case 6:
-						navi.navigateTo("/pages/main/test-arrow/test-arrow");
+						navi.navigateTo("/pages/main/test-arrow-function/test-arrow-function");
+						break;
+					case 7:
+						navi.navigateTo("/pages/main/test-click/test-click");
 						break;
 				}
 			}

@@ -106,9 +106,16 @@
 			}
 		},
 		{
-			"path": "pages/main/test-arrow/test-arrow",
+			"path": "pages/main/test-arrow-function/test-arrow-function",
 			"style": {
 				"navigationBarTitleText": "箭头函数测试"
+			}
+		},
+	
+		{
+			"path": "pages/main/test-click/test-click",
+			"style": {
+				"navigationBarTitleText": "cell点击测试"
 			}
 		}
 
