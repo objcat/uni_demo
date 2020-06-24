@@ -97,6 +97,13 @@
 					}
 				}
 			}
+		},
+		{
+			"path": "pages/main/test-searchbar/custom-searchbar",
+			"style": {
+				"navigationBarTitleText": "",
+				"navigationStyle":"custom"
+			}
 		}
 
 	],
