@@ -101,8 +101,14 @@
 		{
 			"path": "pages/main/test-searchbar/custom-searchbar",
 			"style": {
-				"navigationBarTitleText": "",
+				"navigationBarTitleText": "自定义搜索栏",
 				"navigationStyle":"custom"
+			}
+		},
+		{
+			"path": "pages/main/test-arrow/test-arrow",
+			"style": {
+				"navigationBarTitleText": "箭头函数测试"
 			}
 		}
 

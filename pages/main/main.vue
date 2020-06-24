@@ -1,7 +1,7 @@
 <template>
 	<view class="zy-content">
 		<u-cell-group>
-				<u-cell-item v-for="item in list" :title="item.title" @click="listClick(item)" :key="item.id"></u-cell-item>
+			<u-cell-item v-for="item in list" :title="item.title" @click="listClick(item)" :key="item.id"></u-cell-item>
 		</u-cell-group>
 	</view>
 </template>
@@ -38,6 +38,10 @@
 					{
 						"id": 5,
 						"title": "搜索框"
+					},
+					{
+						"id": 6,
+						"title": "箭头函数测试"
 					}
 				]
 			}
@@ -60,6 +64,9 @@
 						break;
 					case 5:
 						navi.navigateTo("/pages/main/test-searchbar/test-searchbar");
+						break;
+					case 6:
+						navi.navigateTo("/pages/main/test-arrow/test-arrow");
 						break;
 				}
 			}
