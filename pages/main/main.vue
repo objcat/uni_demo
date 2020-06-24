@@ -34,6 +34,10 @@
 					{
 						"id": 4,
 						"title": "await"
+					},
+					{
+						"id": 5,
+						"title": "搜索框"
 					}
 				]
 			}
@@ -53,6 +57,9 @@
 						break;
 					case 4:
 						navi.navigateTo("/pages/main/test-await/test-await");
+						break;
+					case 5:
+						navi.navigateTo("/pages/main/test-searchbar/test-searchbar");
 						break;
 				}
 			}

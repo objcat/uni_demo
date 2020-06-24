@@ -8,7 +8,7 @@
 	"pages": [{
 			"path": "pages/index/index",
 			"style": {
-				"navigationStyle":"custom"
+				"navigationStyle": "custom"
 			}
 		},
 		{
@@ -21,9 +21,9 @@
 			"path": "pages/guide/guide",
 			"style": {
 				"navigationBarTitleText": "引导页",
-				"navigationStyle":"custom",
+				"navigationStyle": "custom",
 				"app-plus": {
-					"bounce":"none"
+					"bounce": "none"
 				}
 			}
 		},
@@ -55,7 +55,7 @@
 			"path": "pages/main/custom-navi/custom-navi",
 			"style": {
 				"navigationBarTitleText": "自定义导航栏",
-				"navigationStyle":"custom"
+				"navigationStyle": "custom"
 			}
 		},
 		{
@@ -81,8 +81,24 @@
 			"style": {
 				"navigationBarTitleText": "await"
 			}
+		},
+		{
+			"path": "pages/main/test-searchbar/test-searchbar",
+			"style": {
+				"navigationBarTitleText": "",
+				"app-plus": {
+					"titleNView": {
+						"searchInput": {
+							"backgroundColor": "#fff",
+							"borderRadius": "6px", //输入框圆角
+							"placeholder": "请输入搜索内容",
+							"disabled": false //disable时点击输入框不置焦，可以跳到新页面搜索
+						}
+					}
+				}
+			}
 		}
-		
+
 	],
 	// 配置全局样式
 	"globalStyle": {
