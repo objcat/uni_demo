@@ -111,39 +111,42 @@ const media = {
 }
 
 
-const request = function(url, data, callback, returnError, method = 'POST') {
-	
+const request = function(url, data, returnError, method = 'POST') {
+
+
+
 	let token = store.state.token;
-	
+
 	let header = {
 		// 这里进行token的封装
 		"token": "6666666"
 	}
-	
-	console.log("******** request header ********")
-	console.log(header);
-	
-	uni.request({
-		url: url,
-		method: method,
-		data: data,
-		header: header,
-		success(res) {
-			callback(res, null);
-		},
-		fail(error) {
-			if (returnError) {
-				callback(null, error);
-			} else {
-				let errMsg = error.errMsg;
-				if (errMsg.indexOf('timeout') != -1) {
-					ui.showToast("网络请求超时");
+
+	return new Promise(function(resove, reject) {
+		uni.request({
+			url: url,
+			method: method,
+			data: data,
+			header: header,
+			success(res) {
+				resove(res, null)
+			},
+			fail(error) {
+				if (returnError) {
+					resove(null, error)
 				} else {
-					ui.showToast(error.errMsg);
+					let errMsg = error.errMsg;
+					if (errMsg.indexOf('timeout') != -1) {
+						ui.showToast("网络请求超时");
+					} else {
+						ui.showToast(error.errMsg);
+					}
 				}
 			}
-		}
+		})
 	})
+
+	return promise;
 }
 
 const req = {
@@ -155,19 +158,19 @@ const req = {
 	 * @param callback 请求回调
 	 * @param returnError 如果设置true错误手动处理 默认是封装方法进行统一处理
 	 */
-	get: function(url, data, callback, returnError = false) {
-		request(url, data, callback, returnError, 'GET');
+	get: function(url, data, returnError = false) {
+		return request(url, data, returnError, 'GET');
 	},
-	post: function(url, data, callback, returnError = false) {
-		request(url, data, callback, returnError, 'POST');
+	post: function(url, data, returnError = false) {
+		return request(url, data, returnError, 'POST');
 	},
-	put: function(url, data, callback, returnError = false) {
-		request(url, data, callback, returnError, 'PUT');
+	put: function(url, data, returnError = false) {
+		return request(url, data, returnError, 'PUT');
 	},
-	delete: function(url, data, callback, returnError = false) {
-		request(url, data, callback, returnError, 'DELETE');
+	delete: async function(url, data, returnError = false) {
+		return request(url, data, returnError, 'DELETE');
 	}
-	
+
 }
 
 /**

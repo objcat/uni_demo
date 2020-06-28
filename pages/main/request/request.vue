@@ -36,21 +36,29 @@
 					{
 						"title": "delete",
 						"type": "error"
+					},
+					{
+						"title": "await get (log顺序 1234)",
+						"type": "success"
+					},
+					{
+						"title": "并行 get (log顺序 1324 1342)",
+						"type": "success"
 					}
 				],
 				value: ""
 			}
 		},
 		methods: {
-			btnClick: function(index) {
+			btnClick: async function(index) {
 				let self = this;
 				switch (index) {
 					case 0:
 						ui.showToast("开始进行get请求")
-						req.get("https://www.baidu.com", {}, function(res) {
 
+						req.get("https://www.baidu.com", {}).then(function(res) {
 							let result = "";
-							
+
 							result = result + "请求类型GET \n\n";
 
 							result = result + "********** response header ********** \n\n";
@@ -60,15 +68,16 @@
 							result = result + "\n \n ********** data ********** \n\n" + res.data;
 
 							self.value = result;
-
 						});
+
+
+
 						break;
 					case 1:
 						ui.showToast("开始进行post请求")
-						req.post("https://www.baidu.com", {}, function(res) {
-
+						req.post("https://www.baidu.com", {}).then(function(res) {
 							let result = "";
-							
+
 							result = result + "请求类型POST \n\n";
 
 							result = result + "********** response header ********** \n\n";
@@ -78,16 +87,14 @@
 							result = result + "\n \n ********** data ********** \n\n" + res.data;
 
 							self.value = result;
-
 						});
 						break;
 
 					case 2:
 						ui.showToast("开始进行put请求")
-						req.put("https://www.baidu.com", {}, function(res) {
-							
+						req.put("https://www.baidu.com", {}).then(function(res) {
 							let result = "";
-							
+
 							result = result + "请求类型PUT \n\n";
 
 							result = result + "********** response header ********** \n\n";
@@ -97,16 +104,14 @@
 							result = result + "\n \n ********** data ********** \n\n" + res.data;
 
 							self.value = result;
-
 						});
 						break;
 
 					case 3:
 						ui.showToast("开始进行delete请求")
-						req.delete("https://www.baidu.com", {}, function(res) {
-							
+						req.delete("https://www.baidu.com", {}).then(function(res) {
 							let result = "";
-							
+
 							result = result + "请求类型DELETE \n\n";
 
 							result = result + "********** response header ********** \n\n";
@@ -116,8 +121,37 @@
 							result = result + "\n \n ********** data ********** \n\n" + res.data;
 
 							self.value = result;
-
 						});
+						break;
+					case 4:
+
+						console.log("1.网络请求1开始!!!");
+
+						await req.get("https://www.baidu.com", {}).then(function(res) {
+							console.log("2.请求1完成!")
+						});
+
+						console.log("3.网络请求2开始!!!");
+
+						await req.get("https://www.baidu.com", {}).then(function(res) {
+							console.log("4.请求2完成")
+						});
+
+						break;
+					case 5:
+
+						console.log("1.网络请求1开始!!!");
+
+						req.get("https://www.baidu.com", {}).then(function(res) {
+							console.log("2.请求1完成")
+						});
+
+						console.log("3.网络请求2开始!!!");
+
+						req.get("https://www.baidu.com", {}).then(function(res) {
+							console.log("4.请求2完成")
+						});
+
 						break;
 				}
 			}
