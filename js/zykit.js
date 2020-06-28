@@ -119,7 +119,7 @@ const request = function(url, data, returnError, method = 'POST') {
 
 	let header = {
 		// 这里进行token的封装
-		"token": "6666666"
+		"token": token
 	}
 
 	return new Promise(function(resove, reject) {
