@@ -5,7 +5,7 @@
 
 			<u-cell-item :center="true">
 				<view class="zy-flex-row" @click="click1">
-					<button @click.native.stop="click2">@click.native.stop</button>
+					<button @click.stop="click2">@click.stop</button>
 				</view>
 			</u-cell-item>
 
@@ -18,7 +18,7 @@
 		</u-cell-group>
 
 		<text style="word-break: break-all; margin-top: 10px;">
-			我们发现点第一个按钮会打印点击按钮, 而点第二个按钮会打印点击cell, 这里是用了 @click.native.stop 来阻止事件的传递, 如果使用的是@click则会出现按钮下层的cell也被点击,
+			我们发现点第一个按钮会打印点击按钮, 而点第二个按钮会打印点击cell, 这里是用了 @click.stop 来阻止事件的传递, 如果使用的是@click则会出现按钮下层的cell也被点击,
 		</text>
 
 		<text style="word-break: break-all; margin-top: 10px; color: red;">
