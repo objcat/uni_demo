@@ -163,8 +163,7 @@ const request = function(url, data, isJson, returnError, method) {
 			}
 		})
 	})
-
-	return promise;
+	
 }
 
 const req = {
