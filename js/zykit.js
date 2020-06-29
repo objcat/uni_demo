@@ -186,7 +186,8 @@ const api = {
 
 const img = {
 	icon_wangye: "/static/img/user/wangye.png",
-	launch_img_1: "/static/img/guide/guide.png"
+	launch_img_1: "/static/img/guide/guide.png",
+	vue_img_1: "/static/img/temp/vue_1.png"
 }
 
 export {

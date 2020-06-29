@@ -8,6 +8,15 @@
 			我们可以发现, 点击箭头函数的按钮没有任何提示, 因为它报错了, 而其他两种写法是可以的
 			所以说箭头函数是存在毛病的, 别问, 问就是使用后两种方法
 		</text>
+		
+		<text style="word-break: break-all; margin-top: 10px;">
+			经过咨询群里得到了答案, 我们来看vue官方的说法
+		</text>
+		
+		<u-image :src="img" mode="widthFix" style="width: 100%; margin-top: 10px;" :showLoading="false" :showError="false" @click="preview"></u-image>
+		
+		<u-link href="https://cn.vuejs.org/v2/api/#methods">打开官方文档</u-link>
+
 	</view>
 </template>
 
@@ -22,7 +31,8 @@
 	export default {
 		data() {
 			return {
-				value: "hello"
+				value: "hello",
+				img: img.vue_img_1
 			}
 		},
 		methods: {
@@ -34,6 +44,14 @@
 			},
 			hello3() {
 				ui.showToast("简便写法 hello() {} value的值是:  " + this.value)
+			},
+			preview() {
+				uni.previewImage({
+					current:this.img,
+					urls:[
+						this.img
+					]
+				})
 			}
 		}
 	}

@@ -3,6 +3,7 @@
 		<u-cell-group>
 			<u-cell-item v-for="item in list" :title="item.title" @click="listClick(item)" :key="item.id"></u-cell-item>
 		</u-cell-group>
+
 	</view>
 </template>
 
@@ -73,6 +74,9 @@
 						break;
 					case 7:
 						navi.navigateTo("/pages/main/test-click/test-click");
+						break;
+					case 8:
+						this.show = true;
 						break;
 				}
 			}
