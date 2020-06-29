@@ -56,7 +56,7 @@
 					case 0:
 						ui.showToast("开始进行get请求")
 
-						req.get("https://www.baidu.com").then(function(res) {
+						req.get("http://www.baidu.com", {"id": "1"}).then(function(res) {
 							let result = "";
 
 							result = result + "请求类型GET \n\n";
@@ -75,7 +75,7 @@
 						break;
 					case 1:
 						ui.showToast("开始进行post请求")
-						req.post("https://www.baidu.com", {}).then(function(res) {
+						req.post("http://www.baidu.com", {"name":"张三"}).then(function(res) {
 							let result = "";
 
 							result = result + "请求类型POST \n\n";
@@ -92,7 +92,7 @@
 
 					case 2:
 						ui.showToast("开始进行put请求")
-						req.put("https://www.baidu.com", {}).then(function(res) {
+						req.put("http://www.baidu.com", {}).then(function(res) {
 							let result = "";
 
 							result = result + "请求类型PUT \n\n";
@@ -109,7 +109,7 @@
 
 					case 3:
 						ui.showToast("开始进行delete请求")
-						req.delete("https://www.baidu.com", {}).then(function(res) {
+						req.delete("http://www.baidu.com", {}).then(function(res) {
 							let result = "";
 
 							result = result + "请求类型DELETE \n\n";

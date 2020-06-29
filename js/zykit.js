@@ -113,18 +113,31 @@ const media = {
 /**
  * 封装网络请求
  * 
- * @param url 请求地址
- * @param data 请求体
- * @param callback 请求回调
- * @param returnError 如果设置true错误手动处理 默认是封装方法进行统一处理 有时候我们希望节约代码错误让统一方法进行处理 有的时候某一个页面就不遵循这个规则所以开放了此属性来增强灵活性
+ * @param {String} url 请求地址
+ * @param {Object} data 请求体
+ * @param {Boolean} isJson 正文参数类型, 默认为json, 有时候服务器需要接收键值对形式的参数, 可以设置该参数为false
+ * @param {Boolean} returnError 如果设置true错误手动处理 默认是封装方法进行统一处理 有的时候某一个页面就不遵循这个规则所以开放了此属性来增强灵活性
+ * @param {String} method 请求类型
  */
-const request = function(url, data, returnError, method = 'POST') {
+const request = function(url, data, isJson, returnError, method) {
 
 	let token = store.state.token;
 
-	let header = {
-		// 这里进行token的封装
-		"token": token
+	let header = null;
+
+	if (method == 'GET') {
+		// GET请求无Content-Type
+		header = {
+			// 可以对token统一进行设置
+			"token": token
+		}
+	} else {
+		header = {
+			// 可以对token统一进行设置
+			"token": token,
+			// 设置Content-Type
+			"Content-Type": isJson ? "application/json" : "application/x-www-form-urlencoded"
+		}
 	}
 
 	return new Promise(function(resove, reject) {
@@ -156,17 +169,22 @@ const request = function(url, data, returnError, method = 'POST') {
 
 const req = {
 
-	get: function(url, data = {}, returnError = false) {
-		return request(url, data, returnError, 'GET');
+	/**
+	 * 根据网络请求类型对号入座, 这里需要注意的是get请求的data叫做parameters
+	 * 改名的目的就是为了要与data进行区分, data默认是json放在请求body中 {"id": "123"}
+	 * 而get请求没有body, 所以参数会拼接到url上 比如 www.baidu.com/?id=1
+	 */
+	get: function(url, parameters = {}, returnError = false) {
+		return request(url, parameters, false, returnError, 'GET');
 	},
-	post: function(url, data, returnError = false) {
-		return request(url, data, returnError, 'POST');
+	post: function(url, data, isJson = true, returnError = false) {
+		return request(url, data, isJson, returnError, 'POST');
 	},
-	put: function(url, data, returnError = false) {
-		return request(url, data, returnError, 'PUT');
+	put: function(url, data, isJson = true, returnError = false) {
+		return request(url, data, isJson, returnError, 'PUT');
 	},
-	delete: async function(url, data, returnError = false) {
-		return request(url, data, returnError, 'DELETE');
+	delete: function(url, data, isJson = true, returnError = false) {
+		return request(url, data, isJson, returnError, 'DELETE');
 	}
 
 }
