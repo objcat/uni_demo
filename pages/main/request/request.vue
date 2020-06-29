@@ -38,7 +38,7 @@
 						"type": "error"
 					},
 					{
-						"title": "顺序执行网络请求 (log顺序 1234)",
+						"title": "队列网络请求 (log顺序 1234)",
 						"type": "success"
 					},
 					{
