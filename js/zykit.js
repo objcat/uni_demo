@@ -110,10 +110,15 @@ const media = {
 	}
 }
 
-
+/**
+ * 封装网络请求
+ * 
+ * @param url 请求地址
+ * @param data 请求体
+ * @param callback 请求回调
+ * @param returnError 如果设置true错误手动处理 默认是封装方法进行统一处理 有时候我们希望节约代码错误让统一方法进行处理 有的时候某一个页面就不遵循这个规则所以开放了此属性来增强灵活性
+ */
 const request = function(url, data, returnError, method = 'POST') {
-
-
 
 	let token = store.state.token;
 
@@ -150,15 +155,8 @@ const request = function(url, data, returnError, method = 'POST') {
 }
 
 const req = {
-	/**
-	 * 封装网络请求
-	 * 
-	 * @param url 请求地址
-	 * @param data 请求体
-	 * @param callback 请求回调
-	 * @param returnError 如果设置true错误手动处理 默认是封装方法进行统一处理
-	 */
-	get: function(url, data, returnError = false) {
+
+	get: function(url, data = {}, returnError = false) {
 		return request(url, data, returnError, 'GET');
 	},
 	post: function(url, data, returnError = false) {

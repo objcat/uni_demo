@@ -27,7 +27,7 @@
 					},
 					{
 						"title": "post",
-						"type": "info"
+						"type": "primary"
 					},
 					{
 						"title": "put",
@@ -38,11 +38,11 @@
 						"type": "error"
 					},
 					{
-						"title": "await get (log顺序 1234)",
+						"title": "顺序执行网络请求 (log顺序 1234)",
 						"type": "success"
 					},
 					{
-						"title": "并行 get (log顺序 1324 1342)",
+						"title": "并行网络请求 (log顺序 1324 1342)",
 						"type": "success"
 					}
 				],
@@ -56,7 +56,7 @@
 					case 0:
 						ui.showToast("开始进行get请求")
 
-						req.get("https://www.baidu.com", {}).then(function(res) {
+						req.get("https://www.baidu.com").then(function(res) {
 							let result = "";
 
 							result = result + "请求类型GET \n\n";
@@ -125,32 +125,38 @@
 						break;
 					case 4:
 
-						console.log("1.网络请求1开始!!!");
+						var result = "";
+						
+						self.value = result = result + "1.网络请求1开始!" + "\n";
 
 						await req.get("https://www.baidu.com", {}).then(function(res) {
-							console.log("2.请求1完成!")
+							self.value = result = result + "2.网络请求1完成!" + "\n";
 						});
 
-						console.log("3.网络请求2开始!!!");
+						self.value = result = result + "3.网络请求2开始!" + "\n";
 
 						await req.get("https://www.baidu.com", {}).then(function(res) {
-							console.log("4.请求2完成")
+							self.value = result = result + "4.网络请求2完成!" + "\n";
 						});
-
+	
 						break;
+						
 					case 5:
 
-						console.log("1.网络请求1开始!!!");
-
+						var result = "";
+						
+						self.value = result = result + "1.网络请求1开始!" + "\n";
+						
 						req.get("https://www.baidu.com", {}).then(function(res) {
-							console.log("2.请求1完成")
+							self.value = result = result + "2.网络请求1完成!" + "\n";
 						});
-
-						console.log("3.网络请求2开始!!!");
-
+						
+						self.value = result = result + "3.网络请求2开始!" + "\n";
+						
 						req.get("https://www.baidu.com", {}).then(function(res) {
-							console.log("4.请求2完成")
+							self.value = result = result + "4.网络请求2完成!" + "\n";
 						});
+							
 
 						break;
 				}

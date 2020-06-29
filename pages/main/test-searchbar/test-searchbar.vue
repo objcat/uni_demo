@@ -1,7 +1,7 @@
 <template>
 	<view class="zy-content" style="padding: 10px;">
 
-		<u-button type="primary" @click="tap">自定义搜索框</u-button>
+		<u-button type="primary" @click="tap">uView自定义搜索框</u-button>
 
 		<text class="break-all">原生导航栏搜索框有两种搜索模式, 搜索框需要在pages.json中进行配置</text>
 
@@ -19,7 +19,7 @@
 			"disabled": true
 		</text>
 
-		<text class="break-all">详见如下网址: https://uniapp.dcloud.io/collocation/frame/lifecycle</text>
+		<u-link class="break-all" style="margin-top: 10px;" href="https://uniapp.dcloud.io/collocation/frame/lifecycle">详见如下网址: https://uniapp.dcloud.io/collocation/frame/lifecycle</u-link>
 		<text style="font-size: 20px; margin-top: 10px;">搜索框中的文字</text>
 		<text class="break-all" style="background-color: #18B566; margin-top: 10px; font-size: 18px;">{{ text }}</text>
 
