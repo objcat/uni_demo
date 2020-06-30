@@ -1,10 +1,10 @@
 <template>
-	<view class="zy-content">
-		<button type="primary" @click="click1" style="margin-top: 10px;">一般 $emit</button>
-		<button type="primary" @click="click2" style="margin-top: 10px;">一次性 $emit</button>
-		<button type="primary" @click="click3" style="margin-top: 10px;">nvue => js中调用 $emit</button>
-		<button type="primary" @click="click4" style="margin-top: 10px;">nvue => 退出登录</button>
-		<button type="primary" @click="click5" style="margin-top: 10px;">nvue => 触发App.vue中的退出登录</button>
+	<view class="zy-content" style="align-items: center;">
+		<button type="primary" class="button" @click="click1" style="margin-top: 10px;">一般 $emit</button>
+		<button type="primary" class="button" @click="click2" style="margin-top: 10px;">一次性 $emit</button>
+		<button type="primary" class="button" @click="click3" style="margin-top: 10px;">nvue => js中调用 $emit</button>
+		<button type="primary" class="button" @click="click4" style="margin-top: 10px;">nvue => 退出登录</button>
+		<button type="primary" class="button" @click="click5" style="margin-top: 10px;">nvue => 触发App.vue中的退出登录</button>
 	</view>
 </template>
 
@@ -74,7 +74,7 @@
 			})
 		},
 		onUnload() {
-			console.log("页面释放");
+			console.log("页面释放, 移除所有监听");
 			uni.$off('normal_emit');
 			uni.$off('normal_emit_js');
 		}
@@ -82,4 +82,7 @@
 </script>
 
 <style>
+	.button {
+		width: auto;
+	}
 </style>
