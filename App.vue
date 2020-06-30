@@ -1,6 +1,17 @@
 <script>
+	import {
+		mapState,
+		mapMutations,
+		mapGetters,
+		mapActions
+	} from 'vuex'
 	export default {
 		onLaunch: function() {
+			// 注意这里要用箭头函数 如果是一般函数需要 let self = this; self.xact_logout();
+			uni.$on('emit_logout_appvue', (dic) => {
+				console.log("退出登录 from App.vue");
+				this.xact_logout();
+			})
 			console.log('App Launch');
 		},
 		onShow: function() {
@@ -8,6 +19,9 @@
 		},
 		onHide: function() {
 			console.log('App Hide');
+		},
+		methods: {
+			...mapActions(['xact_logout'])
 		}
 	};
 </script>

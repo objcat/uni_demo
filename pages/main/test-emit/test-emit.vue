@@ -50,7 +50,7 @@
 			})
 		},
 		onUnload() {
-			console.log("页面释放");
+			console.log("页面释放, 移除所有监听");
 			uni.$off('normal_emit');
 			uni.$off('normal_emit_js');
 		}

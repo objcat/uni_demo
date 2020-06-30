@@ -1,9 +1,10 @@
 <template>
 	<view class="zy-content">
-		<u-button type="success" @click="click1" style="margin-top: 10px;">一般 $emit</u-button>
-		<u-button type="primary" @click="click2" style="margin-top: 10px;">一次性 $emit</u-button>
-		<u-button type="waitting" @click="click3" style="margin-top: 10px;">nvue => js中调用 $emit</u-button>
-		<u-button type="waitting" @click="click4" style="margin-top: 10px;">nvue => 退出登录</u-button>
+		<button type="primary" @click="click1" style="margin-top: 10px;">一般 $emit</button>
+		<button type="primary" @click="click2" style="margin-top: 10px;">一次性 $emit</button>
+		<button type="primary" @click="click3" style="margin-top: 10px;">nvue => js中调用 $emit</button>
+		<button type="primary" @click="click4" style="margin-top: 10px;">nvue => 退出登录</button>
+		<button type="primary" @click="click5" style="margin-top: 10px;">nvue => 触发App.vue中的退出登录</button>
 	</view>
 </template>
 
@@ -39,6 +40,10 @@
 			},
 			click4() {
 				test.logout();
+				// this.xact_logout();
+			},
+			click5() {
+				test.logout_appvue();
 				// this.xact_logout();
 			},
 			...mapActions(['xact_logout'])
