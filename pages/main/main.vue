@@ -54,7 +54,13 @@
 						"id": 7,
 						"title": "阻止点击事件冒泡",
 						"file": "test-click"
+					},
+					{
+						"id": 8,
+						"title": "全局通知",
+						"file": "test-emit"
 					}
+					
 				]
 			}
 		},
@@ -83,7 +89,7 @@
 						navi.navigateTo("/pages/main/test-click/test-click");
 						break;
 					case 8:
-						this.show = true;
+						navi.navigateTo("/pages/main/test-emit/test-emit");
 						break;
 				}
 			}

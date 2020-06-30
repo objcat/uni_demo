@@ -117,6 +117,18 @@
 			"style": {
 				"navigationBarTitleText": "cell点击测试"
 			}
+		},
+		{
+			"path": "pages/main/test-emit/test-emit",
+			"style": {
+				"navigationBarTitleText": "全局通知"
+			}
+		},
+		{
+			"path": "pages/main/test-emit/test-emit2",
+			"style": {
+				"navigationBarTitleText": "全局通知nvue"
+			}
 		}
 
 	],
