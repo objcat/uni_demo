@@ -1,5 +1,12 @@
 <script>
 	import {
+		req,
+		api,
+		navi,
+		img,
+		ui 
+	} from '@/js/zykit.js'
+	import {
 		mapState,
 		mapMutations,
 		mapGetters,
@@ -12,6 +19,13 @@
 				console.log("退出登录 from App.vue");
 				this.xact_logout();
 			})
+			
+			uni.getNetworkType({
+				success(res) {
+					ui.showToast(res.networkType);
+				}
+			})
+
 			console.log('App Launch');
 		},
 		onShow: function() {

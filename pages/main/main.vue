@@ -3,7 +3,6 @@
 		<u-cell-group>
 			<u-cell-item v-for="item in list" :title="item.title" @click="listClick(item)" :key="item.id">{{ item.file }}</u-cell-item>
 		</u-cell-group>
-
 	</view>
 </template>
 

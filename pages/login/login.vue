@@ -18,7 +18,6 @@
 </template>
 
 <script>
-	import service from '@/js/service'
 
 	import {
 		req,

@@ -8,7 +8,7 @@ const ui = {
 	showToast: function(title) {
 		uni.showToast({
 			title: title,
-			duration: 2000,
+			duration: 1000,
 			position: 'center',
 			icon: "none"
 		})
@@ -199,6 +199,11 @@ const api = {
 	login: host + ""
 }
 
+
+/**
+ * 图片管理
+ * 当然你也可以不用它, 但是我觉得它可以帮你更好的管理图片, 把一些需要地方都会用到的图片放在这里, 可以做到修改一处批量修改的原理
+ */
 const img = {
 	icon_wangye: "/static/img/user/wangye.png",
 	launch_img_1: "/static/img/guide/guide.png",
@@ -220,7 +225,7 @@ export {
 	req,
 	// 接口列表
 	api,
-	// 图片管理类
+	// 图片管理
 	img
 }
 
@@ -239,6 +244,6 @@ export default {
 	req,
 	// 接口列表
 	api,
-	// 图片管理类
+	// 图片管理
 	img
 }
