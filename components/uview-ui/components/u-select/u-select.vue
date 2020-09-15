@@ -11,7 +11,7 @@
 		</view> -->
 		<u-popup :maskCloseAble="maskCloseAble" mode="bottom" :popup="false" v-model="value" length="auto" :safeAreaInsetBottom="safeAreaInsetBottom" @close="close" :z-index="uZIndex">
 			<view class="u-select">
-				<view class="u-select__header" @touchmove.stop.prevent="stop" catchtouchmove="stop">
+				<view class="u-select__header" @touchmove.stop.prevent="">
 					<view
 						class="u-select__header__cancel u-select__header__btn"
 						:style="{ color: cancelColor }"
@@ -19,7 +19,7 @@
 						:hover-stay-time="150"
 						@tap="getResult('cancel')"
 					>
-						取消
+						{{cancelText}}
 					</view>
 					<view class="u-select__header__title">
 						{{title}}
@@ -32,7 +32,7 @@
 						@touchmove.stop=""
 						@tap.stop="getResult('confirm')"
 					>
-						确定
+						{{confirmText}}
 					</view>
 				</view>
 				<view class="u-select__body">
@@ -60,6 +60,8 @@
 	 * @property {Boolean} safe-area-inset-bottom 是否开启底部安全区适配(默认false)
 	 * @property {String} cancel-color 取消按钮的颜色（默认#606266）
 	 * @property {String} confirm-color 确认按钮的颜色(默认#2979ff)
+	 * @property {String} confirm-text 确认按钮的文字
+	 * @property {String} cancel-text 取消按钮的文字
 	 * @property {String} default-value 提供的默认选中的下标，见官网说明
 	 * @property {Boolean} mask-close-able 是否允许通过点击遮罩关闭Picker(默认true)
 	 * @property {String Number} z-index 弹出时的z-index值(默认10075)
@@ -144,6 +146,16 @@ export default {
 		title: {
 			type: String,
 			default: ''
+		},
+		// 取消按钮的文字
+		cancelText: {
+			type: String,
+			default: '取消'
+		},
+		// 确认按钮的文字
+		confirmText: {
+			type: String,
+			default: '确认'
 		}
 	},
 	data() {
@@ -251,12 +263,13 @@ export default {
 			let tmp = null;
 			for(let i = 0; i < this.columnNum; i++) {
 				tmp = this.columnData[i][this.defaultSelector[i]];
-				this.selectValue.push({
+				let data = {
 					value: tmp ? tmp[this.valueName] : null,
 					label: tmp ? tmp[this.labelName] : null
-				})
+				};
 				// 判断是否存在额外的参数，如果存在，就返回
-				if(tmp && tmp.extra) this.selectValue.extra = tmp.extra;
+				if(tmp && tmp.extra) data.extra = tmp.extra;
+				this.selectValue.push(data)
 			}
 		},
 		// 列选项
@@ -287,7 +300,7 @@ export default {
 						label: data ? data[this.labelName] : null,
 					};
 					// 判断是否有需要额外携带的参数
-					if(data && data.extra) tmp.extra = data.extra;
+					if(data && data.extra !== undefined) tmp.extra = data.extra;
 					this.selectValue.push(tmp);
 
 				})
@@ -301,7 +314,7 @@ export default {
 					label: data ? data[this.labelName] : null,
 				};
 				// 判断是否有需要额外携带的参数
-				if(data && data.extra) tmp.extra = data.extra;
+				if(data && data.extra !== undefined) tmp.extra = data.extra;
 				this.selectValue.push(tmp);
 			} else if(this.mode == 'mutil-column') {
 				// 初始默认选中值
@@ -313,7 +326,7 @@ export default {
 						label: data ? data[this.labelName] : null,
 					};
 					// 判断是否有需要额外携带的参数
-					if(data && data.extra) tmp.extra = data.extra;
+					if(data && data.extra !== undefined) tmp.extra = data.extra;
 					this.selectValue.push(tmp);
 				})
 			}
@@ -373,7 +386,7 @@ export default {
 	}
 
 	&__header {
-		display: flex;
+		@include vue-flex;
 		align-items: center;
 		justify-content: space-between;
 		height: 80rpx;
@@ -391,7 +404,7 @@ export default {
 			box-sizing: border-box;
 
 			&__item {
-				display: flex;
+				@include vue-flex;
 				align-items: center;
 				justify-content: center;
 				font-size: 32rpx;

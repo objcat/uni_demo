@@ -129,6 +129,12 @@
 			"style": {
 				"navigationBarTitleText": "全局通知nvue"
 			}
+		},
+		{
+			"path": "pages/main/test-dao/test-dao",
+			"style": {
+				"navigationBarTitleText": "倒计时"
+			}
 		}
 
 	],

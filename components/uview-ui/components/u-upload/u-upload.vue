@@ -6,8 +6,8 @@
 			v-for="(item, index) in lists"
 			:key="index"
 			:style="{
-				width: width + 'rpx',
-				height: width + 'rpx'
+				width: $u.addUnit(width),
+				height: $u.addUnit(height)
 			}"
 		>
 			<view
@@ -39,8 +39,8 @@
 				hover-class="u-add-wrap__hover"
 				hover-stay-time="150"
 				:style="{
-					width: width + 'rpx',
-					height: width + 'rpx'
+					width: $u.addUnit(width),
+					height: $u.addUnit(height)
 				}"
 			>
 				<u-icon name="plus" class="u-add-btn" size="40"></u-icon>
@@ -63,6 +63,7 @@
  * @property {String} image-mode 预览图片等显示模式，可选值为uni的image的mode属性值（默认aspectFill）
  * @property {String} del-icon 右上角删除图标名称，只能为uView内置图标
  * @property {String} del-bg-color 右上角关闭按钮的背景颜色
+ * @property {String | Number} index 在各个回调事件中的最后一个参数返回，用于区别是哪一个组件的事件
  * @property {String} del-color 右上角关闭按钮图标的颜色
  * @property {Object} header 上传携带的头信息，对象形式
  * @property {Object} form-data 上传额外携带的参数
@@ -201,8 +202,13 @@ export default {
 			type: Boolean,
 			default: false
 		},
-		// 内部预览图片区域和选择图片按钮的区域宽度，高等于宽
+		// 内部预览图片区域和选择图片按钮的区域宽度
 		width: {
+			type: [String, Number],
+			default: 200
+		},
+		// 内部预览图片区域和选择图片按钮的区域高度
+		height: {
 			type: [String, Number],
 			default: 200
 		},
@@ -230,6 +236,23 @@ export default {
 		beforeUpload: {
 			type: Function,
 			default: null
+		},
+		// 移除文件前的钩子
+		beforeRemove: {
+			type: Function,
+			default: null
+		},
+		// 允许上传的图片后缀
+		limitType:{
+			type: Array,
+			default() {
+				return ['png', 'jpg', 'jpeg', 'webp', 'gif'];
+			}
+		},
+		// 在各个回调事件中的最后一个参数返回，用于区别是哪一个组件的事件
+		index: {
+			type: [Number, String],
+			default: ''
 		}
 	},
 	mounted() {},
@@ -255,14 +278,16 @@ export default {
 					!tmp && this.lists.push({ url: value.url, error: false, progress: 100 });
 				});
 			}
+		},
+		// 监听lists的变化，发出事件
+		lists(n) {
+			this.$emit('on-list-change', n, this.index);
 		}
 	},
 	methods: {
 		// 清除列表
 		clear() {
 			this.lists = [];
-			// 如果是清空形式的话，发出"on-list-change"事件
-			this.$emit('on-list-change', this.lists);
 		},
 		// 重新上传队列中上传失败的所有文件
 		reUpload() {
@@ -289,28 +314,30 @@ export default {
 					let file = null;
 					let listOldLength = this.lists.length;
 					res.tempFiles.map((val, index) => {
+						// 检查文件后缀是否允许，如果不在this.limitType内，就会返回false
+						if(!this.checkFileExt(val)) return ;
+						
 						// 如果是非多选，index大于等于1或者超出最大限制数量时，不处理
 						if (!multiple && index >= 1) return;
 						if (val.size > maxSize) {
-							this.$emit('on-oversize', val, this.lists);
+							this.$emit('on-oversize', val, this.lists, this.index);
 							this.showToast('超出允许的文件大小');
 						} else {
 							if (maxCount <= lists.length) {
-								this.$emit('on-exceed', val, this.lists);
+								this.$emit('on-exceed', val, this.lists, this.index);
 								this.showToast('超出最大允许的文件个数');
 								return;
 							}
 							lists.push({
 								url: val.path,
 								progress: 0,
-								error: false
+								error: false,
+								file: val
 							});
-							// 列表发生改变，发出事件，第二个参数为当前发生变化的项的索引
-							this.$emit('on-list-change', this.lists);
 						}
 					});
 					// 每次图片选择完，抛出一个事件，并将当前内部选择的图片数组抛出去
-					this.$emit('on-choose-complete', this.lists);
+					this.$emit('on-choose-complete', this.lists, this.index);
 					if (this.autoUpload) this.uploadFile(listOldLength);
 				})
 				.catch(error => {
@@ -346,12 +373,7 @@ export default {
 			if (this.uploading) return;
 			// 全部上传完成
 			if (index >= this.lists.length) {
-				this.$emit('on-uploaded', this.lists);
-				return;
-			}
-			// 检查上传地址
-			if (!this.action) {
-				this.showToast('请配置上传地址', true);
+				this.$emit('on-uploaded', this.lists, this.index);
 				return;
 			}
 			// 检查是否是已上传或者正在上传中
@@ -362,7 +384,12 @@ export default {
 			// 执行before-upload钩子
 			if(this.beforeUpload && typeof(this.beforeUpload) === 'function') {
 				// 执行回调，同时传入索引和文件列表当作参数
-				let beforeResponse = this.beforeUpload(index, this.lists);
+				// 在微信，支付宝等环境(H5正常)，会导致父组件定义的customBack()函数体中的this变成子组件的this
+				// 通过bind()方法，绑定父组件的this，让this.customBack()的this为父组件的上下文
+				// 因为upload组件可能会被嵌套在其他组件内，比如u-form，这时this.$parent其实为u-form的this，
+				// 非页面的this，所以这里需要往上历遍，一直寻找到最顶端的$parent，这里用了this.$u.$parent.call(this)
+				// 明白意思即可，无需纠结this.$u.$parent.call(this)的细节
+				let beforeResponse = this.beforeUpload.bind(this.$u.$parent.call(this))(index, this.lists);
 				// 判断是否返回了promise
 				if (!!beforeResponse && typeof beforeResponse.then === 'function') {
 					await beforeResponse.then(res => {
@@ -372,9 +399,16 @@ export default {
 						return this.uploadFile(index + 1);
 					})
 				} else if(beforeResponse === false) {
-					 // 如果返回false，继续下一张图片的上传
+					// 如果返回false，继续下一张图片的上传
 					return this.uploadFile(index + 1);
+				} else {
+					// 此处为返回"true"的情形，这里不写代码，就跳过此处，继续执行当前的上传逻辑
 				}
+			}
+			// 检查上传地址
+			if (!this.action) {
+				this.showToast('请配置上传地址', true);
+				return;
 			}
 			this.lists[index].error = false;
 			this.uploading = true;
@@ -387,15 +421,15 @@ export default {
 				header: this.header,
 				success: res => {
 					// 判断是否json字符串，将其转为json格式
-					let data = this.toJson && this.checkIsJSON(res.data) ? JSON.parse(res.data) : res.data;
-					if (![200, 201].includes(res.statusCode)) {
+					let data = this.toJson && this.$u.test.jsonString(res.data) ? JSON.parse(res.data) : res.data;
+					if (![200, 201, 204].includes(res.statusCode)) {
 						this.uploadError(index, data);
 					} else {
 						// 上传成功
 						this.lists[index].response = data;
 						this.lists[index].progress = 100;
 						this.lists[index].error = false;
-						this.$emit('on-success', data, index, this.lists);
+						this.$emit('on-success', data, index, this.lists, this.index);
 					}
 				},
 				fail: e => {
@@ -405,13 +439,13 @@ export default {
 					uni.hideLoading();
 					this.uploading = false;
 					this.uploadFile(index + 1);
-					this.$emit('on-change', res, index, this.lists);
+					this.$emit('on-change', res, index, this.lists, this.index);
 				}
 			});
 			task.onProgressUpdate(res => {
 				if (res.progress > 0) {
 					this.lists[index].progress = res.progress;
-					this.$emit('on-progress', res, index, this.lists);
+					this.$emit('on-progress', res, index, this.lists, this.index);
 				}
 			});
 		},
@@ -420,7 +454,7 @@ export default {
 			this.lists[index].progress = 0;
 			this.lists[index].error = true;
 			this.lists[index].response = null;
-			this.$emit('on-error', err, index, this.lists);
+			this.$emit('on-error', err, index, this.lists, this.index);
 			this.showToast('上传失败，请重试');
 		},
 		// 删除一个图片
@@ -428,27 +462,54 @@ export default {
 			uni.showModal({
 				title: '提示',
 				content: '您确定要删除此项吗？',
-				success: res => {
+				success: async (res) => {
 					if (res.confirm) {
-						if (this.lists[index].process < 100 && this.lists[index].process > 0) {
-							typeof this.lists[index].uploadTask != 'undefined' && this.lists[index].uploadTask.abort();
+						// 先检查是否有定义before-remove移除前钩子
+						// 执行before-remove钩子
+						if(this.beforeRemove && typeof(this.beforeRemove) === 'function') {
+							// 此处钩子执行 原理同before-remove参数，见上方注释
+							let beforeResponse = this.beforeRemove.bind(this.$u.$parent.call(this))(index, this.lists);
+							// 判断是否返回了promise
+							if (!!beforeResponse && typeof beforeResponse.then === 'function') {
+								await beforeResponse.then(res => {
+									// promise返回成功，不进行动作，继续上传
+									this.handlerDeleteItem(index);
+								}).catch(err => {
+									// 如果进入promise的reject，终止删除操作
+									this.showToast('已终止移除');
+								})
+							} else if(beforeResponse === false) {
+								// 返回false，终止删除
+								this.showToast('已终止移除');
+							} else {
+								// 如果返回true，执行删除操作
+								this.handlerDeleteItem(index);
+							}
+						} else {
+							// 如果不存在before-remove钩子，
+							this.handlerDeleteItem(index);
 						}
-						this.lists.splice(index, 1);
-						this.$forceUpdate();
-						this.$emit('on-remove', index, this.lists);
-						this.showToast('移除成功');
-						// 列表发生改变，发出事件
-						this.$emit('on-list-change', this.lists);
 					}
 				}
 			});
+		},
+		// 执行移除图片的动作，上方代码只是判断是否可以移除
+		handlerDeleteItem(index) {
+			// 如果文件正在上传中，终止上传任务，进度在0 < progress < 100则意味着正在上传
+			if (this.lists[index].process < 100 && this.lists[index].process > 0) {
+				typeof this.lists[index].uploadTask != 'undefined' && this.lists[index].uploadTask.abort();
+			}
+			this.lists.splice(index, 1);
+			this.$forceUpdate();
+			this.$emit('on-remove', index, this.lists, this.index);
+			this.showToast('移除成功');
 		},
 		// 用户通过ref手动的形式，移除一张图片
 		remove(index) {
 			// 判断索引的合法范围
 			if (index >= 0 && index < this.lists.length) {
 				this.lists.splice(index, 1);
-				this.$emit('on-list-change', this.lists);
+				this.$emit('on-list-change', this.lists, this.index);
 			}
 		},
 		// 预览图片
@@ -459,7 +520,7 @@ export default {
 				urls: images,
 				current: url,
 				success: () => {
-					this.$emit('on-preview', url, this.lists);
+					this.$emit('on-preview', url, this.lists, this.index);
 				},
 				fail: () => {
 					uni.showToast({
@@ -469,21 +530,28 @@ export default {
 				}
 			});
 		},
-		// 判断是否json字符串
-		checkIsJSON(str) {
-			if (typeof str == 'string') {
-				try {
-					var obj = JSON.parse(str);
-					if (typeof obj == 'object' && obj) {
-						return true;
-					} else {
-						return false;
-					}
-				} catch (e) {
-					return false;
-				}
-			}
-			return false;
+		// 判断文件后缀是否允许
+		checkFileExt(file) {
+			// 检查是否在允许的后缀中
+			let noArrowExt = false;
+			// 获取后缀名
+			let fileExt = '';
+			const reg = /.+\./;
+			// 如果是H5，需要从name中判断
+			// #ifdef H5
+			fileExt = file.name.replace(reg, "").toLowerCase();
+			// #endif
+			// 非H5，需要从path中读取后缀
+			// #ifndef H5
+			fileExt = file.path.replace(reg, "").toLowerCase();
+			// #endif
+			// 使用数组的some方法，只要符合limitType中的一个，就返回true
+			noArrowExt = this.limitType.some(ext => {
+				// 转为小写
+				return ext.toLowerCase() === fileExt;
+			})
+			if(!noArrowExt) this.showToast(`不允许选择${fileExt}格式的文件`);
+			return noArrowExt;
 		}
 	}
 };
@@ -493,7 +561,7 @@ export default {
 @import '../../libs/css/style.components.scss';
 
 .u-upload {
-	display: flex;
+	@include vue-flex;
 	flex-wrap: wrap;
 	align-items: center;
 }
@@ -506,7 +574,9 @@ export default {
 	background: rgb(244, 245, 246);
 	position: relative;
 	border-radius: 10rpx;
-	display: inline-flex;
+	/* #ifndef APP-NVUE */
+	display: flex;
+	/* #endif */
 	align-items: center;
 	justify-content: center;
 }
@@ -518,11 +588,12 @@ export default {
 .u-add-wrap {
 	flex-direction: column;
 	color: $u-content-color;
-	font-size: 28rpx;
+	font-size: 26rpx;
 }
 
 .u-add-tips {
 	margin-top: 20rpx;
+	line-height: 40rpx;
 }
 
 .u-add-wrap__hover {
@@ -545,13 +616,13 @@ export default {
 	border-radius: 100rpx;
 	width: 44rpx;
 	height: 44rpx;
-	display: flex;
+	@include vue-flex;
 	align-items: center;
 	justify-content: center;
 }
 
 .u-icon {
-	display: flex;
+	@include vue-flex;
 	align-items: center;
 	justify-content: center;
 }

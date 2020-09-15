@@ -8,7 +8,11 @@
 			type ? `u-type-${type}-bg` : '',
 			striped ? 'u-striped' : '',
 			striped && stripedActive ? 'u-striped-active' : ''
-		]" class="u-active" :style="[progressStyle]">{{showPercent ? percent + '%' : ''}}
+		]" class="u-active" :style="[progressStyle]">
+			<slot v-if="$slots.default" />
+			<block v-else-if="showPercent">
+				{{percent + '%'}}
+			</block>
 		</view>
 	</view>
 </template>
@@ -102,7 +106,9 @@
 	.u-progress {
 		overflow: hidden;
 		height: 15px;
+		/* #ifndef APP-NVUE */
 		display: inline-flex;
+		/* #endif */
 		align-items: center;
 		width: 100%;
 		border-radius: 100rpx;
@@ -112,7 +118,7 @@
 		width: 0;
 		height: 100%;
 		align-items: center;
-		display: flex;
+		@include vue-flex;
 		justify-items: flex-end;
 		justify-content: space-around;
 		font-size: 20rpx;

@@ -58,8 +58,12 @@
 						"id": 8,
 						"title": "全局通知",
 						"file": "test-emit"
+					},
+					{
+						"id": 9,
+						"title": "倒计时",
+						"file": "test-dao"
 					}
-					
 				]
 			}
 		},
@@ -89,6 +93,9 @@
 						break;
 					case 8:
 						navi.navigateTo("/pages/main/test-emit/test-emit");
+						break;
+					case 9:
+						navi.navigateTo("/pages/main/test-dao/test-dao");
 						break;
 				}
 			}

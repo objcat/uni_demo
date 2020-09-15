@@ -8,11 +8,16 @@
 	 * @description 此组件一般用于表单场景，可以配置Input输入框，Select弹出框，进行表单验证等。
 	 * @tutorial http://uviewui.com/components/form.html
 	 * @property {Object} model 表单数据对象
+	 * @property {Boolean} border-bottom 是否显示表单域的下划线边框
+	 * @property {String} label-position 表单域提示文字的位置，left-左侧，top-上方
+	 * @property {String Number} label-width 提示文字的宽度，单位rpx（默认90）
+	 * @property {Object} label-style lable的样式，对象形式
+	 * @property {String} label-align lable的对齐方式
 	 * @property {Object} rules 通过ref设置，见官网说明
-	 * @property {Array} errorType 错误的提示方式，数组形式，见上方说明(默认['message'])
+	 * @property {Array} error-type 错误的提示方式，数组形式，见上方说明(默认['message'])
 	 * @example <u-form :model="form" ref="uForm"></u-form>
 	 */
-	
+
 export default {
 	name: 'u-form',
 	props: {
@@ -37,7 +42,34 @@ export default {
 			default() {
 				return ['message', 'toast']
 			}
-		}
+		},
+		// 是否显示表单域的下划线边框
+		borderBottom: {
+			type: Boolean,
+			default: true
+		},
+		// label的位置，left-左边，top-上边
+		labelPosition: {
+			type: String,
+			default: 'left'
+		},
+		// label的宽度，单位rpx
+		labelWidth: {
+			type: [String, Number],
+			default: 90
+		},
+		// lable字体的对齐方式
+		labelAlign: {
+			type: String,
+			default: 'left'
+		},
+		// lable的样式，对象形式
+		labelStyle: {
+			type: Object,
+			default() {
+				return {}
+			}
+		},
 	},
 	provide() {
 		return {
@@ -53,21 +85,6 @@ export default {
 		// 存储当前form下的所有u-form-item的实例
 		// 不能定义在data中，否则微信小程序会造成循环引用而报错
 		this.fields = [];
-		// 存当前实例
-		let that = this;
-		// 监听on-form-item-add事件，将子组件添加到fields中
-		this.$on('on-form-item-add', item => {
-			if (item) {
-				that.fields.push(item);
-			}
-		});
-		// 删除当前有的实例
-		this.$on('on-form-item-remove', item => {
-			// 如果当前没有prop的话表示当前不要进行删除（因为没有注入）
-			if (item.prop) {
-				that.fields.splice(that.fields.indexOf(item), 1);
-			}
-		});
 	},
 	methods: {
 		setRules(rules) {

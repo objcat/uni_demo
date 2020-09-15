@@ -1,14 +1,7 @@
-// nvue不能用标签命名样式
-/* #ifndef APP-NVUE */
-image {
-	display: inline-block;
-	// 解决图片加载时可能会瞬间变形的问题
-	will-change: transform;
+// 定义混入指令，用于在非nvue环境下的flex定义，因为nvue没有display属性，会报错
+@mixin vue-flex($direction: row) {
+	/* #ifndef APP-NVUE */
+	display: flex;
+	flex-direction: $direction;
+	/* #endif */
 }
-
-// 在weex，也即nvue中，所有元素默认为border-box
-view,
-text {
-	box-sizing: border-box;
-}
-/* #endif */
