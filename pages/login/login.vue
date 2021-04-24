@@ -26,7 +26,7 @@
 		img,
 		ui,
 		str
-	} from '@/js/zykit.js'
+	} from '@/components/zyui/js/zykit.js'
 
 	import {
 		mapState,

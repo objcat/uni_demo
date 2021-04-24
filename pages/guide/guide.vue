@@ -23,7 +23,7 @@
 	import {
 		img,
 		store
-	} from '@/js/zykit.js'
+	} from '@/components/zyui/js/zykit.js'
 	
 	export default {
 		data() {

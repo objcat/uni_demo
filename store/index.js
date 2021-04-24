@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 
 import {
 	navi
-} from '@/js/zykit.js'
+} from '@/components/zyui/js/zykit.js'
 
 const storage = {
 	/**

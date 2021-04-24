@@ -14,7 +14,7 @@
 		navi,
 		img,
 		ui 
-	} from '@/js/zykit.js'
+	} from '@/components/zyui/js/zykit.js'
 	
 	import test from './test.js'
 	
